@@ -1,0 +1,13 @@
+server:
+  port: 9090
+
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+  datasource:
+    username: root
+    password: kmWeb1234
+    url: jdbc:mariadb://localhost:3306/kmweb?characterEncoding=UTF-8&serverTimezone=UTC
+

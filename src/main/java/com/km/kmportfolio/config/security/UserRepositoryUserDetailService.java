@@ -27,4 +27,5 @@ public class UserRepositoryUserDetailService implements UserDetailsService {
                 "User '" + username + "' not found"
         );
     }
+
 }

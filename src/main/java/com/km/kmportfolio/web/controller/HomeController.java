@@ -1,4 +1,4 @@
-package com.km.kmportfolio.web.user.controller;
+package com.km.kmportfolio.web.controller;
 
 import com.km.kmportfolio.web.entity.User;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

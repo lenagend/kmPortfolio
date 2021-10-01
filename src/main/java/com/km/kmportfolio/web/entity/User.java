@@ -1,9 +1,6 @@
 package com.km.kmportfolio.web.entity;
 
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,15 +19,13 @@ public class User implements UserDetails {
     @Id
     private final String username;
     private final String password;
-    private final String email1;
-    private final String email2;
-
-
-
+    private final String email;
+    private int enabled = 0;
+    private String authority = "ROLE_USER";
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
+        return Arrays.asList(new SimpleGrantedAuthority(this.authority));
     }
 
     @Override
@@ -50,6 +45,10 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        if (enabled == 0) {
+            return false;
+        }
+        else
+            return true;
     }
 }

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns = "http://www.w3.org/1999/xhtml"
+      xmlns:th = "http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <!-- 합쳐지고 최소화된 최신 CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <!-- 부가적인 테마 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<!--검색-->
+<form method="get" th:action="@{/admin/userManagement}">
+<select name="searchOption">
+    <option value="authority">권한</option>
+    <option value="enabled">싱태</option>
+    <option value="username">유저명</option>
+</select>
+<input type="text" name="searchText" placeholder="검색어 입력"/>
+<input type="submit" value="검색">
+</form>
+<!--검색-->
+<!--게시물-->
+<tr th:each="user: ${userList}">
+    <td th:text="${user.username}"></td>
+    <td th:text="${user.email}"></td>
+    <td th:text="${user.authority}"></td>
+</tr>
+<!--게시물-->
+
+<br>
+<!--페이징-->
+<nav style="text-align: center;">
+    <ul class="pagination"
+        th:with="start=${T(Math).floor(userList.number/10)*10 + 1},
+                    last=(${start + 9 < userList.totalPages ? start + 9 : userList.totalPages})">
+        <li>
+            <a th:href="@{/admin/userManagement(page=1)}" aria-label="First">
+                <span aria-hidden="true">First</span>
+            </a>
+        </li>
+
+        <li th:class="${userList.first} ? 'disabled'">
+            <a th:href="${userList.first} ? '#' :@{/admin/userManagement(page=${userList.number})}" aria-label="Previous">
+                <span aria-hidden="true">&lt;</span>
+            </a>
+        </li>
+
+        <li th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == userList.number + 1} ? 'active'">
+            <a th:text="${page}" th:href="@{/admin/userManagement(page=${page})}"></a>
+        </li>
+
+        <li th:class="${userList.last} ? 'disabled'">
+            <a th:href="${userList.last} ? '#' : @{/admin/userManagement(page=${userList.number + 2})}" aria-label="Next">
+                <span aria-hidden="true">&gt;</span>
+            </a>
+        </li>
+
+        <li>
+            <a th:href="@{/admin/userManagement(page=${userList.totalPages})}" aria-label="Last">
+                <span aria-hidden="true">Last</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+<!--페이징-->
+
+</body>
+</html>

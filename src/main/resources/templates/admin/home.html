@@ -1,16 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html xmlns = "http://www.w3.org/1999/xhtml"
+      xmlns:th = "http://www.thymeleaf.org">
+<head th:fragment="fragment/head.html">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>관리자</title>
+    <link rel="stylesheet" type="text/css" href="dist/css/adminlte.css">
 </head>
 <body>
-헤더
-(statusbar)
-메뉴
-콘텐츠
-(기능)
-푸터
-
+<header></header>
+<a th:href="@{/admin/userManagement}">회원관리</a>
+<a th:href="@{/admin/insertTestUsers}">테스트계정 100개삽입</a>
+<footer th:fragment=""></footer>
 </body>
 </html>

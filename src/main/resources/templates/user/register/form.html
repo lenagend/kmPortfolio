@@ -20,16 +20,25 @@
         <br>
 
         <label for="password">비밀번호: </label>
-        <input type="password" id="password" name="password" placeholder="비밀번호"/><br>
+        <input type="password" id="password" th:field="*{password}" placeholder="비밀번호"/>
+        <span clas="validationError"
+              th:if="${#fields.hasErrors('password')}"
+              th:errors="*{password}"Password Error></span>
+        <br>
 
         <label for="confirm">비밀번호확인: </label>
-        <input type="password" id="confirm"  placeholder="비밀번호확인"/><br>
+        <input type="password" id="confirm" th:field="*{confirm}" placeholder="비밀번호확인"/>
+        <span clas="validationError"
+              th:if="${confirmError}"
+              th:text="${confirmError}"></span>
+        <br>
 
-            <label for="email1">이메일: </label>
-            <input type="text" id="email1" name="email1" placeholder="이메일"/>
-            @
-            <input type="text" id="email2" name="email2"/>
-
+            <label for="email">이메일: </label>
+            <input type="text" id="email" th:field="*{email}" placeholder="이메일"/>
+        <span clas="validationError"
+              th:if="${#fields.hasErrors('email')}"
+              th:errors="*{email}"Email Error></span>
+        <br>
             <input type="submit" value="확인"/>
     </form>
 </body>

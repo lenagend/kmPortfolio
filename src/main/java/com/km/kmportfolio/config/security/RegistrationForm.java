@@ -11,6 +11,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 @Data
 public class RegistrationForm {
@@ -26,8 +28,10 @@ public class RegistrationForm {
     private String email;
 
     public User toUser(PasswordEncoder passwordEncoder){
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         return new User(
-                username, passwordEncoder.encode(password), email
+                username, passwordEncoder.encode(password), email, sdf1.format(timestamp)
         );
     }
 }

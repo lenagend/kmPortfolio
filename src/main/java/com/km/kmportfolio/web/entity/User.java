@@ -22,6 +22,7 @@ public class User implements UserDetails {
     private final String email;
     private int enabled = 0;
     private String authority = "ROLE_USER";
+    private final String regidate;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

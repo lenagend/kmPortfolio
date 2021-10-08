@@ -6,7 +6,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserQueryRepository extends JpaRepository<User, Long> {
-    Page<User> findAllByUsername(Pageable var1, String username);
+    Page<User> findAllByUsernameContainingIgnoreCase(Pageable var1, String username);
+    Page<User> findAllByRegidateContainingIgnoreCase(Pageable var1, String regidate);
     Page<User> findAllByAuthority(Pageable var1, String authority);
     Page<User> findAllByEnabled(Pageable var1, int enabled);
 }

@@ -20,9 +20,10 @@ public class User implements UserDetails {
     private final String username;
     private final String password;
     private final String email;
+    private final String regidate;
     private int enabled = 0;
     private String authority = "ROLE_USER";
-    private final String regidate;
+    private String locked = "nonLocked";
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -36,7 +37,10 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        if(this.locked.equals("nonLocked"))
+            return true;
+        else
+            return false;
     }
 
     @Override
@@ -46,10 +50,6 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        if (enabled == 0) {
-            return false;
-        }
-        else
-            return true;
+        return enabled != 0;
     }
 }

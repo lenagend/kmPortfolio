@@ -10,14 +10,13 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 
 
@@ -84,6 +83,14 @@ public class AdminController {
         }
 
         return "admin/home";
+    }
+
+    @PostMapping("/test")
+    @ResponseBody
+    public String test(@RequestParam Map<String, Object> param){
+        System.out.println("왔음" + (String)param.get("test"));
+        return "성공";
+
     }
 
 }

@@ -3,16 +3,39 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout/adminLayout">
 <section layout:fragment="fragment-content">
+    <script>
+        // var token = $("meta[name='_csrf']").attr("content");
+        // var header = $("meta[name='_csrf_header']").attr("content");
+        function banned() {
+
+            $.ajax({
+                url:'${request.getContextPath()}/admin/test', //request 보낼 서버의 경로
+                type:'POST', // 메소드(get, post, put 등)
+                data:{'id':'admin'}, //보낼 데이터
+                dataType:'json',
+                contentType:'apllication/json',
+                success: function(data) {x
+                    alert("성공");
+                },
+                error: function(err) {
+                    alert("실패");
+                }
+            });
+
+
+        }
+
+    </script>
     <form method="get" th:action="@{/admin/userControl}">
     <!--게시물-->
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">타이틀</h3>
+                    <h3 class="card-title"><a th:href="@{/admin/userControl}">사용자 관리</a></h3>
 
                     <div class="card-tools">
-                        <div class="input-group input-group-sm" style="width: 450px;">
+                        <div class="input-group input-group-sm">
                             <!--검색-->
                                 <select class="form-control" name="searchOption">
                                     <option  th:selected="${searchOption} =='username'" value="username">유저명</option>
@@ -22,7 +45,7 @@
                                 </select>
                             <!--검색-->
                             <input type="text" name="searchText" th:value="${searchText} ? ${searchText} : '' "
-                                   class="form-control float-right" placeholder="Search" style="width: 250px;">
+                                   class="form-control float-right" placeholder="Search">
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-default">
                                     <i class="fas fa-search"></i>
@@ -42,20 +65,36 @@
                             <th>권한</th>
                             <th>가입일</th>
                             <th>상태</th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="user: ${boardList}">
+                        <tr th:each="user: ${boardList}" th:class="${user.enabled}  ? '' : 'bg-danger'">
                             <td th:text="${user.username}"></td>
                             <td th:text="${user.email}"></td>
                             <td th:text="${user.authority}"></td>
                             <td th:text="${user.regidate}"></td>
-                            <td th:text="${user.enabled} == 1 ? '활성' : '비활성' "></td>
+                            <td th:text="${user.locked == 'nonLocked'}  ? '활성' : ${user.locked + '까지 정지'} "></td>
+                            <td>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default">정지/활성화</button>
+                                    <button type="button" class="btn btn-default dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <div class="dropdown-menu" role="menu">
+                                        <a class="dropdown-item" href="javascript:banned();">일반정지</a>
+                                        <a class="dropdown-item" href="#">영구정지</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#">활성화</a>
+                                    </div>
+                                </div>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
                 <!-- /.card-body -->
+
                 <!--페이징-->
                 <div class="card-footer clearfix">
                     <ul class="pagination pagination-sm m-0 float-right"

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<aside class="control-sidebar control-sidebar-dark" th:fragment="fragment-controlSidebar">
+   <div class="p-3 control-sidebar-content">
+       <form method="POST" th:action="@{/logout}">
+       <h5><span sec:authentication="name">유저이름</span><span>, 님!&nbsp;&nbsp;</span><input type="submit" value="로그아웃">
+       </h5>
+       </form>
+       <hr class="mb-2">
+       <div class="mb-1">
+           <a th:href="@{/admin/insertTestUsers}">테스트 100개 넣기</a>
+       </div>
+   </div>
+</aside>
+</html>
+
+

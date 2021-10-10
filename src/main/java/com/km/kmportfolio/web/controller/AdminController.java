@@ -85,12 +85,11 @@ public class AdminController {
         return "admin/home";
     }
 
-    @PostMapping("/test")
-    @ResponseBody
-    public String test(@RequestParam Map<String, Object> param){
-        System.out.println("왔음" + (String)param.get("test"));
-        return "성공";
-
+    @GetMapping("/sendEmail")
+    public String sendEmail(Model model, @RequestParam String email, @RequestParam String username){
+        model.addAttribute("email", email);
+        model.addAttribute("username", username);
+        return "admin/sendEmail";
     }
 
 }

@@ -55,7 +55,6 @@ public class LoginController {
         mailDto.setAddress(registrationForm.getEmail());
         mailDto.setTitle("KmPortFolio 계정 활성화");
         String message = "<a href='http://localhost:9090/activated?username=" + registrationForm.getUsername() + "'>계정 활성화하기</a>";
-        System.out.println(message);
         mailDto.setMessage(message);
         mailService.mailSend(mailDto);
 

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/adminLayout">
+<section layout:fragment="fragment-content">
+    <script>
+
+        $(function () {
+            // Summernote
+            $('#compose-textarea').summernote({
+                placeholder : "내용:",
+                height : 500
+
+            })
+        })
+    </script>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-primary card-outline">
+                <div class="card-header">
+                    <h3 class="card-title">메일작성</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <div class="form-group">
+                        <input class="form-control" name="username" th:value="${username} ? ${username} : ''">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" name="email" th:value="${email} ? ${email} : ''">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="제목:">
+                    </div>
+                    <div class="form-group">
+                    <textarea id="compose-textarea" class="form-control"  style="height: 300px">
+
+                    </textarea>
+                    </div>
+                    <div class="form-group">
+<!--                        <div class="btn btn-default btn-file">-->
+<!--                            <i class="fas fa-paperclip"></i> Attachment-->
+<!--                            <input type="file" name="attachment">-->
+<!--                        </div>-->
+<!--                        <p class="help-block">Max. 32MB</p>-->
+                    </div>
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                    <div class="float-right">
+                        <button type="button" class="btn btn-default"><i class="fas fa-pencil-alt"></i> Draft</button>
+                        <button type="submit" class="btn btn-primary"><i class="far fa-envelope"></i> Send</button>
+                    </div>
+                    <button type="reset" class="btn btn-default"><i class="fas fa-times"></i> Discard</button>
+                </div>
+                <!-- /.card-footer -->
+            </div>
+            <!-- /.card -->
+        </div>
+        <!-- /.col-->
+    </div>
+</section>
+</html>

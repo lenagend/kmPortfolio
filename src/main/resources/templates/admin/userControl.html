@@ -4,25 +4,29 @@
       layout:decorator="layout/adminLayout">
 <section layout:fragment="fragment-content">
     <script>
-        // var token = $("meta[name='_csrf']").attr("content");
-        // var header = $("meta[name='_csrf_header']").attr("content");
-        function banned() {
-
+        const token = $("meta[name='_csrf']").attr("content");
+        const header = $("meta[name='_csrf_header']").attr("content");
+        function userControl(username, process) {
+            var process = process;
             $.ajax({
-                url:'${request.getContextPath()}/admin/test', //request 보낼 서버의 경로
-                type:'POST', // 메소드(get, post, put 등)
-                data:{'id':'admin'}, //보낼 데이터
-                dataType:'json',
-                contentType:'apllication/json',
-                success: function(data) {x
-                    alert("성공");
+                url:'/process',
+                type:'POST',
+                data:{'username': username, 'process': process},
+                dataType: 'json',
+                beforeSend(xhr){
+                  xhr.setRequestHeader(header, token);
                 },
-                error: function(err) {
-                    alert("실패");
+                success: function(result) {
+                    var sendEmail = confirm("처리사유 이메일을 작성하시겠습니까?");
+                    if (sendEmail)
+                    location.href = "/admin/sendEmail?username=" + result.username + "&email=" +result.email;
+                    else
+                    location.reload();
+                },
+                error: function(result) {
+                    alert(result);
                 }
             });
-
-
         }
 
     </script>
@@ -74,18 +78,18 @@
                             <td th:text="${user.email}"></td>
                             <td th:text="${user.authority}"></td>
                             <td th:text="${user.regidate}"></td>
-                            <td th:text="${user.locked == 'nonLocked'}  ? '활성' : ${user.locked + '까지 정지'} "></td>
+                            <td th:text="${user.locked == 'nonLocked'}  ? '일반' : ${user.locked + '까지 정지'} "></td>
                             <td>
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-default">정지/활성화</button>
+                                    <button type="button" class="btn btn-default">정지/해제</button>
                                     <button type="button" class="btn btn-default dropdown-toggle dropdown-icon" data-toggle="dropdown">
                                         <span class="sr-only">Toggle Dropdown</span>
                                     </button>
                                     <div class="dropdown-menu" role="menu">
                                         <a class="dropdown-item" href="javascript:banned();">일반정지</a>
-                                        <a class="dropdown-item" href="#">영구정지</a>
+                                        <a class="dropdown-item" th:href="|javascript:userControl('${user.username}', 'banned')|">영구정지</a>
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">활성화</a>
+                                        <a class="dropdown-item" th:href="|javascript:userControl('${user.username}', 'release')|">정지해제</a>
                                     </div>
                                 </div>
                             </td>

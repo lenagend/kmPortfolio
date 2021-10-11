@@ -15,7 +15,7 @@ public class MailService {
     public void mailSend(MailDto mailDto){
         try{
             MailHandler mailHandler = new MailHandler(mailSender);
-            mailHandler.setTo(mailDto.getAddress());
+            mailHandler.setTo(mailDto.getEmail());
             mailHandler.setFrom(MailService.FROM_ADDRESS);
             mailHandler.setSubject(mailDto.getTitle());
             mailHandler.setText(mailDto.getMessage(), true);

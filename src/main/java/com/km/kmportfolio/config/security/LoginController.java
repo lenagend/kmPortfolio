@@ -1,6 +1,5 @@
 package com.km.kmportfolio.config.security;
 
-import com.km.kmportfolio.config.security.RegistrationForm;
 import com.km.kmportfolio.web.Service.MailService;
 import com.km.kmportfolio.web.data.MailDto;
 import com.km.kmportfolio.web.data.UserRepository;
@@ -12,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 
@@ -52,7 +50,7 @@ public class LoginController {
         }
 
         MailDto mailDto = new MailDto();
-        mailDto.setAddress(registrationForm.getEmail());
+        mailDto.setEmail(registrationForm.getEmail());
         mailDto.setTitle("KmPortFolio 계정 활성화");
         String message = "<a href='http://localhost:9090/activated?username=" + registrationForm.getUsername() + "'>계정 활성화하기</a>";
         mailDto.setMessage(message);

@@ -4,7 +4,8 @@ import lombok.Data;
 
 @Data
 public class MailDto {
-    private String address;
+    private String email;
     private String title;
     private String message;
+    private String username;
 }

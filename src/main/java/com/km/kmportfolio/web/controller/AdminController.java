@@ -1,5 +1,7 @@
 package com.km.kmportfolio.web.controller;
 
+import com.km.kmportfolio.web.Service.MailService;
+import com.km.kmportfolio.web.data.MailDto;
 import com.km.kmportfolio.web.data.UserQueryRepository;
 import com.km.kmportfolio.web.data.UserRepository;
 import com.km.kmportfolio.web.entity.User;
@@ -12,6 +14,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Iterator;
@@ -26,12 +32,17 @@ public class AdminController {
     private UserRepository userRepo;
     private UserQueryRepository userQueryRepository;
     private PasswordEncoder passwordEncoder;
+    private MailService mailService;
 
-    public AdminController(UserRepository userRepo, UserQueryRepository userQueryRepository, PasswordEncoder passwordEncoder
+    public AdminController(UserRepository userRepo,
+                           UserQueryRepository userQueryRepository,
+                           PasswordEncoder passwordEncoder,
+                           MailService mailService
     ){
         this.passwordEncoder = passwordEncoder;
         this.userRepo = userRepo;
         this.userQueryRepository = userQueryRepository;
+        this.mailService = mailService;
     }
 
     @GetMapping("/home")
@@ -86,10 +97,21 @@ public class AdminController {
     }
 
     @GetMapping("/sendEmail")
-    public String sendEmail(Model model, @RequestParam String email, @RequestParam String username){
-        model.addAttribute("email", email);
-        model.addAttribute("username", username);
+    public String sendEmail(Model model, MailDto mailDto){
+        System.out.println(mailDto.getEmail());
+        model.addAttribute("mailDto", mailDto);
         return "admin/sendEmail";
+    }
+
+    @PostMapping("/sendEmail")
+    public String sendEmailProcess(@Valid MailDto mailDto, HttpServletResponse response) throws IOException {
+        mailService.mailSend(mailDto);
+        response.setContentType("text/html; charset=euc-kr");
+        PrintWriter out = response.getWriter();
+        out.println("<script>alert('메일 송신이 완료되었습니다.'); </script>");
+        out.flush();
+        return "admin/home";
+
     }
 
 }

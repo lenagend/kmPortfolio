@@ -25,5 +25,12 @@ spring:
       pageable:
         default-page-size: 10
         one-indexed-parameters: true
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 708353661169-rosg765p89ngke33huh87afj3ohhvh8j.apps.googleusercontent.com
+            client-secret: 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
 
 

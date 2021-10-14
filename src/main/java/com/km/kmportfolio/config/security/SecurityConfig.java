@@ -40,10 +40,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
 
                 .and()
+                .oauth2Login()
+                .loginPage("/login")
+
+                .and()
                 .formLogin()
                 .loginPage("/login")
                 .successHandler(new CustomSuccessHandler())
                 .defaultSuccessUrl("/")
+
 
                 .and()
                 .logout()

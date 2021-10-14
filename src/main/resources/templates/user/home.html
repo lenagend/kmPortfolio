@@ -1,23 +1,16 @@
 <!DOCTYPE html>
-<html xmlns = "http://www.w3.org/1999/xhtml"
-      xmlns:th = "http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<header>
-    <a th:href="@{/login}">로그인</a>
-    <form method="POST" th:action="@{/logout}">
-        <input type="submit" value="로그아웃">
-    </form>
-    사용자 이름: <input th:if="${user}" type="text" th:value="${user.username}" />
-</header>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/userLayout">
+<div layout:fragment="fragment-content">
+    <div class="container">
+        <div class="row">
 (로그인바)
 메뉴
 콘텐츠
 (mainBoard, 광고)
 푸터
-
-</body>
+        </div>
+    </div>
+</div>
 </html>

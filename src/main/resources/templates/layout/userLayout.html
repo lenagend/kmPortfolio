@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns = "http://www.w3.org/1999/xhtml"
+      xmlns:th = "http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <div th:replace="/fragment/head.html :: fragment-head"></div>
+    <title>사용자</title>
+</head>
+<body class="hold-transition layout-top-nav">
+<div class="wrapper">
+<nav>
+    <div th:replace="/fragment/topNavbar.html :: fragment-topNavbar"></div>
+</nav>
+
+<!--content-->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div th:replace="/fragment/userContentHeader.html :: fragment-userContentHeader" ></div>
+    <!-- /.content-header -->
+    <div class="content" layout:fragment="fragment-content">
+
+    </div>
+</div>
+<!-- /.content-wrapper -->
+<!--content-->
+<footer>
+    <div th:replace="/fragment/footer.html :: fragment-footer"></div>
+</footer>
+
+</div>
+</body>
+</html>

@@ -8,10 +8,15 @@
         const header = $("meta[name='_csrf_header']").attr("content");
         function userControl(username, process) {
             var process = process;
+            var stopDate = 0
+            if(process==='stop'){
+                var num = prompt("정지 일 수를 입력해주세요.");
+                stopDate = Number(num);
+            }
             $.ajax({
                 url:'/process',
                 type:'POST',
-                data:{'username': username, 'process': process},
+                data:{'username': username, 'process': process, 'stopDate' : stopDate},
                 dataType: 'json',
                 beforeSend(xhr){
                   xhr.setRequestHeader(header, token);
@@ -86,7 +91,7 @@
                                         <span class="sr-only">Toggle Dropdown</span>
                                     </button>
                                     <div class="dropdown-menu" role="menu">
-                                        <a class="dropdown-item" href="javascript:banned();">일반정지</a>
+                                        <a class="dropdown-item" th:href="|javascript:userControl('${user.username}', 'stop')|">일반정지</a>
                                         <a class="dropdown-item" th:href="|javascript:userControl('${user.username}', 'banned')|">영구정지</a>
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" th:href="|javascript:userControl('${user.username}', 'release')|">정지해제</a>

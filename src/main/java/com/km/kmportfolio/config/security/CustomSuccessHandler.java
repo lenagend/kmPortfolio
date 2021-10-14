@@ -21,7 +21,6 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
        if (!user.isAccountNonLocked()){
            String limit = user.getLocked();
            throw new LockedException(limit + "까지 계정이 정지되었습니다. 관리자에게 문의해주세요");
-
        }
     }
 }
